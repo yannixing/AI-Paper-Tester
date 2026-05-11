@@ -18,34 +18,29 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                script {
-                        sh '''
-                            set -e
-                            python3 -m venv agent
-                            . agent/bin/activate
-                            python -m pip install --upgrade pip
+                sh '''
+                    #set -e
+                    python3 -m venv agent
+                    . agent/bin/activate
+                    python -m pip install --upgrade pip
 
-                            # 如果你把 requirements.txt 放在 AI 目录，就改成 AI/requirements.txt
-                            if [ -f requirements.txt ]; then
-                                pip install -r requirements.txt
-                            else
-                                # 兜底安装（至少保证 pytest 和你当前 agent 依赖可用）
-                                pip install pytest langchain langchain-openai langchain-chroma langchain-huggingface sentence-transformers chromadb
-                            fi
-                        '''
-                }
+                    if [ -f requirements.txt ]; then
+                        pip install -r requirements.txt
+                    else
+                        # 兜底安装（至少保证 pytest 和你当前 agent 依赖可用）
+                        pip install pytest langchain langchain-openai langchain-chroma langchain-huggingface sentence-transformers chromadb
+                    fi
+                 '''
             }
         }
 
         stage('Test') {
             steps {
-                script {
-                        sh '''
-                            set -e
-                            . agent/bin/activate
-                            pytest AI/test_agent.py -q --junitxml=test-results.xml
-                        '''
-                }
+                sh '''
+                set -e
+                . agent/bin/activate
+                pytest test_agent.py -q --junitxml=test-results.xml
+                 '''
             }
         }
 
@@ -64,4 +59,3 @@ pipeline {
         }
     }
 }
-
