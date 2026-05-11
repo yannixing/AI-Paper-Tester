@@ -49,7 +49,7 @@ def search_papers(query: str) -> str:#Agent 工具版 RAG：需要时才查向�
 # 4. 加载大模型
 llm = ChatOpenAI(
     model="Qwen/Qwen3.5-27B",
-    api_key="ms-b73f4199-18a1-4529-a680-f47c8acbcbab",
+    api_key="ms-883ddad7-ee94-4cac-b1d3-aafbb3761b20",
     base_url="https://api-inference.modelscope.cn/v1/",
     temperature=0.2
 )
@@ -74,7 +74,7 @@ agent = create_agent(
 # 6. 命令行对话
 chat_history = []
 
-MAX_HISTORY = 4
+MAX_HISTORY = 10
 
 while True:
     question = input("\n请输入你的问题（输入 exit 退出）：")
