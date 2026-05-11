@@ -1,0 +1,9 @@
+pytest
+langchain
+langchain-openai
+langchain-chroma
+langchain-huggingface
+chromadb
+sentence-transformers
+transformers
+torch

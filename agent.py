@@ -1,8 +1,12 @@
-from langchain_chroma import Chroma
+﻿from langchain_chroma import Chroma
 from langchain_openai import ChatOpenAI
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.tools import tool
 from langchain.agents import create_agent
+import os
+
+# 从环境变量读取配置（优先），否则使用默认值
+API_KEY = os.environ.get("MODELSCOPE_API_KEY")
 
 DB_DIR = "./chroma_db"
 
@@ -49,7 +53,7 @@ def search_papers(query: str) -> str:#Agent 工具版 RAG：需要时才查向�
 # 4. 加载大模型
 llm = ChatOpenAI(
     model="Qwen/Qwen3.5-27B",
-    api_key="ms-883ddad7-ee94-4cac-b1d3-aafbb3761b20",
+    api_key=API_KEY,
     base_url="https://api-inference.modelscope.cn/v1/",
     temperature=0.2
 )
@@ -107,4 +111,3 @@ while True:
     except Exception as e:
         print("\n运行出错：")
         print(e)
-
