@@ -39,7 +39,7 @@ pipeline {
                 sh '''
                 set -e
                 . agent/bin/activate
-                pytest test_agent.py -q --junitxml=test-results.xml
+                pytest test_agent.py -q --junitxml=test-results.xml #生成测试报告
                  '''
             }
         }
@@ -53,8 +53,8 @@ pipeline {
 
     post {
         always {
-            junit testResults: 'test-results.xml', allowEmptyResults: true
-            archiveArtifacts artifacts: 'test-results.xml', allowEmptyArchive: true
+            junit testResults: 'test-results.xml', allowEmptyResults: true #解析报告 显示测试 UI
+            archiveArtifacts artifacts: 'test-results.xml', allowEmptyArchive: true #保存报告文件
             echo '无论成功或失败，均已收集测试报告'
         }
     }

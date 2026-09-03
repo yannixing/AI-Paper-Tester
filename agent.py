@@ -4,7 +4,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.tools import tool
 from langchain.agents import create_agent
 import os
-
+#Agent版RAG (Agentic RAG)，自主决策：Agent会先“思考”用户的问题，然后决定是否需要调用检索工具，还是直接回答。
 # 从环境变量读取配置（优先），否则使用默认值
 API_KEY = os.environ.get("MODELSCOPE_API_KEY")
 

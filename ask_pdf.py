@@ -3,7 +3,7 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_huggingface import HuggingFaceEmbeddings
-
+#基础RAG链 (RAG Chain)，固定流程：检索 → 拼接提示词 → 生成答案。每一步都是预先设定好的，没有分支
 DB_DIR = "./chroma_db"
 
 def format_docs(docs):
@@ -54,7 +54,7 @@ retriever = db.as_retriever(#生成的检索器。
 # 3. 加载大模型
 llm = ChatOpenAI(
     model="Qwen/Qwen3.5-27B",
-    api_key="ms-b73f4199-18a1-4529-a680-f47c8acbcbab",
+    api_key="",#输入自己的API_KEY，或者使用环境变量
     base_url="https://api-inference.modelscope.cn/v1/",
     temperature=0.2
 )
