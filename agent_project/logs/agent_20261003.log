@@ -1,0 +1,79 @@
+2026-10-03 10:07:52,388 - agent - INFO - logger_handler.py:46 - 信息日志
+2026-10-03 10:07:52,389 - agent - ERROR - logger_handler.py:47 - 错误日志
+2026-10-03 10:07:52,389 - agent - WARNING - logger_handler.py:48 - 警告日志
+2026-10-03 10:07:52,389 - agent - DEBUG - logger_handler.py:49 - 调试日志
+2026-10-03 19:24:27,429 - agent - INFO - vector_store.py:85 - [加载知识库]加载成功！D:/Desktop/毕业论文/论文/研究现状1\AdapCP.pdf内容已加载在知识库paper1中
+2026-10-03 19:24:35,993 - agent - INFO - vector_store.py:85 - [加载知识库]加载成功！D:/Desktop/毕业论文/论文/研究现状1\Adaptive_and_Resilient_Model-Distributed_Inference_in_Edge_Computing_Systems.pdf内容已加载在知识库paper1中
+2026-10-03 19:24:39,083 - agent - INFO - vector_store.py:85 - [加载知识库]加载成功！D:/Desktop/毕业论文/论文/研究现状1\AMP4EC_Adaptive_Model_Partitioning_Framework_for_Efficient_Deep_Learning_Inference_in_Edge_Computing_Environments.pdf内容已加载在知识库paper1中
+2026-10-03 19:24:41,334 - agent - INFO - vector_store.py:85 - [加载知识库]加载成功！D:/Desktop/毕业论文/论文/研究现状1\Collaborative_DNNs_Inference_with_Joint_Model_Partition_and_Compression_in_Mobile_Edge-Cloud_Computing_Networks.pdf内容已加载在知识库paper1中
+2026-10-03 22:31:59,785 - agent - INFO - middleware.py:37 - [log_before_model]即将调用模型，带有1条消息
+2026-10-03 22:31:59,802 - agent - DEBUG - middleware.py:38 - [log_before_model]HumanMessage|模型并行有哪些方式
+2026-10-03 22:32:06,479 - agent - INFO - middleware.py:21 - [tool monitor] 执行工具rag_summarize
+2026-10-03 22:32:06,480 - agent - INFO - middleware.py:22 - [tool monitor] 传入参数{'query': '模型并行的方式 分类 实现方法'}
+2026-10-03 22:32:17,301 - agent - INFO - middleware.py:26 - [tool moonitor]工具rag_summarize调用成功
+2026-10-03 22:32:17,304 - agent - INFO - middleware.py:37 - [log_before_model]即将调用模型，带有3条消息
+2026-10-03 22:32:17,304 - agent - DEBUG - middleware.py:38 - [log_before_model]ToolMessage|根据提供的参考资料，模型并行的方式主要分为两类：针对全连接层（Fully Connected Layers, FLs）的并行和针对卷积层（Convolutional Layers, CLs）的并行。
+
+1. **全连接层（FLs）的模型并行**  
+   主要通过**矩阵-向量乘法分解**实现。具体方法包括：
+   - 将权重矩阵进行划分，并采用稀疏矩阵存储格式（如 CSR、CSC）压缩子矩阵；
+   - 文中提及三种并行策略：**ONS（Output Neuron Splitting）**、**INS（Input Neuron Splitting）** 和 **Matrix-vector** 方法【《AdapCP: Collaborative Inference with Adaptive CNN Partition》第 10 页】【研究】。
+
+2. **卷积层（CLs）的模型并行**  
+   主要通过对**特征图（feature map）进行划分**实现，具体包括：
+   - **1D-grids 方案**：按特征图的高度方向切分为多个部分，分配给不同节点；
+   - **2D-grids 方案**：按特征图的高度和宽度两个维度切分为网格状分区，分配给多个节点【《AdapCP: Collaborative Inference with Adaptive CNN Partition》第 10–11 页】【研究】。
+
+以上分类与实现方法均基于所给参考资料中的描述。
+2026-10-03 22:53:03,612 - agent - INFO - middleware.py:37 - [log_before_model]即将调用模型，带有1条消息
+2026-10-03 22:53:03,622 - agent - DEBUG - middleware.py:38 - [log_before_model]HumanMessage|模型并行有哪些方式
+2026-10-03 22:53:06,699 - agent - INFO - middleware.py:21 - [tool monitor] 执行工具rag_summarize
+2026-10-03 22:53:06,699 - agent - INFO - middleware.py:22 - [tool monitor] 传入参数{'query': '模型并行的方式有哪些'}
+2026-10-03 22:53:16,119 - agent - INFO - middleware.py:26 - [tool moonitor]工具rag_summarize调用成功
+2026-10-03 22:53:16,121 - agent - INFO - middleware.py:37 - [log_before_model]即将调用模型，带有3条消息
+2026-10-03 22:53:16,121 - agent - DEBUG - middleware.py:38 - [log_before_model]ToolMessage|根据提供的参考资料，模型并行的方式主要包括以下两类：
+
+1. **卷积层（CLs）内的模型并行**：  
+   - **2D-grids 分割**：将输入特征图按高度和宽度划分为多个分区（如将 8×8 特征图分为四块），分配给不同节点【《AdapCP.pdf》第 11 页】。  
+   - **1D-grids 分割**：仅按特征图的高度进行划分，分配给多个节点【《AdapCP.pdf》第 11 页】。
+
+2. **全连接层（FLs）的模型并行**：  
+   - **输出神经元分割（Output Neuron Splitting, ONS）**  
+   - **输入神经元分割（Input Neuron Splitting, INS）**  
+   - **矩阵-向量分割（Matrix-vector）**  
+   其中，ONS 性能优于 INS，因 ONS 可利用激活函数（如 ReLU）减少传输数据量【《AdapCP.pdf》第 11 页】。
+
+此外，资料还提到**模型分布式推理**（model-distributed inference），即将整个 DNN 模型分布到多个工作节点上，用户设备仅处理部分层并传递激活向量【《Adaptive and Resilient Model-Distributed Inference in Edge Computing Systems》第 1263 页】。
+2026-10-03 22:53:22,449 - agent - INFO - middleware.py:37 - [log_before_model]即将调用模型，带有5条消息
+2026-10-03 22:53:22,449 - agent - DEBUG - middleware.py:38 - [log_before_model]HumanMessage|这几篇论文的摘要分别是什么
+2026-10-03 22:53:23,525 - agent - INFO - middleware.py:21 - [tool monitor] 执行工具get_paper_metadata
+2026-10-03 22:53:23,525 - agent - INFO - middleware.py:22 - [tool monitor] 传入参数{'paper_name': 'AdapCP.pdf'}
+2026-10-03 22:53:23,536 - agent - INFO - middleware.py:21 - [tool monitor] 执行工具get_paper_metadata
+2026-10-03 22:53:23,642 - agent - INFO - middleware.py:22 - [tool monitor] 传入参数{'paper_name': 'Adaptive and Resilient Model-Distributed Inference in Edge Computing Systems'}
+2026-10-03 22:53:24,613 - agent - INFO - middleware.py:26 - [tool moonitor]工具get_paper_metadata调用成功
+2026-10-03 22:53:24,614 - agent - INFO - middleware.py:26 - [tool moonitor]工具get_paper_metadata调用成功
+2026-10-03 22:53:24,617 - agent - INFO - middleware.py:37 - [log_before_model]即将调用模型，带有8条消息
+2026-10-03 22:53:24,617 - agent - DEBUG - middleware.py:38 - [log_before_model]ToolMessage|库 paper2 读取失败：'D:\\Desktop\\experiment\\llm\\AI\\agent_project\\chroma_db/paper2'
+2026-10-03 22:53:25,275 - agent - INFO - middleware.py:21 - [tool monitor] 执行工具list_knowledge_bases
+2026-10-03 22:53:25,275 - agent - INFO - middleware.py:22 - [tool monitor] 传入参数{}
+2026-10-03 22:53:25,453 - agent - INFO - middleware.py:26 - [tool moonitor]工具list_knowledge_bases调用成功
+2026-10-03 22:53:25,454 - agent - INFO - middleware.py:37 - [log_before_model]即将调用模型，带有10条消息
+2026-10-03 22:53:25,454 - agent - DEBUG - middleware.py:38 - [log_before_model]ToolMessage|库名：paper1 | 文本块：259 | 综述块：0 | 研究块：259
+库名：paper2 | 文本块：0 | 综述块：0 | 研究块：0
+库名：paper3 | 文本块：0 | 综述块：0 | 研究块：0
+2026-10-03 22:53:26,471 - agent - INFO - middleware.py:21 - [tool monitor] 执行工具rag_summarize
+2026-10-03 22:53:26,471 - agent - INFO - middleware.py:22 - [tool monitor] 传入参数{'query': 'AdapCP.pdf 论文摘要', 'db_name': 'paper1'}
+2026-10-03 22:53:29,949 - agent - INFO - middleware.py:26 - [tool moonitor]工具rag_summarize调用成功
+2026-10-03 22:53:29,950 - agent - INFO - middleware.py:37 - [log_before_model]即将调用模型，带有12条消息
+2026-10-03 22:53:29,951 - agent - DEBUG - middleware.py:38 - [log_before_model]ToolMessage|AdapCP 是一种支持自适应 CNN 分区的协同推理方法，旨在通过在多个邻近边缘服务器之间动态卸载模型分区，提升推理效率并保护端设备隐私。该方法设计了两种自适应算法：用于层间卸载的整数线性规划（ILP）算法和用于层内划分的深度强化学习（DRL）算法，并引入更新周期以增强对不同环境的适应性。实验表明，在 MobileNet、NiN 等四个基准模型上，AdapCP 的推理速度相比 LI、NGO、DINA-P、CoEdge 和 EEC 分别提升了 4.6×、2.21×、1.57×、1.95× 和 1.82×，同时保持与本地推理（LI）相同的测试准确率，且无需像其他方案那样分割特征图【《AdapCP.pdf》第 2–3 页】【《AdapCP.pdf》第 20–21 页】。
+2026-10-03 22:53:31,025 - agent - INFO - middleware.py:21 - [tool monitor] 执行工具rag_summarize
+2026-10-03 22:53:31,025 - agent - INFO - middleware.py:22 - [tool monitor] 传入参数{'query': 'Adaptive and Resilient Model-Distributed Inference in Edge Computing Systems 论文摘要', 'db_name': 'paper1'}
+2026-10-03 22:53:34,936 - agent - INFO - middleware.py:26 - [tool moonitor]工具rag_summarize调用成功
+2026-10-03 22:53:34,937 - agent - INFO - middleware.py:37 - [log_before_model]即将调用模型，带有14条消息
+2026-10-03 22:53:34,937 - agent - DEBUG - middleware.py:38 - [log_before_model]ToolMessage|《Adaptive and Resilient Model-Distributed Inference in Edge Computing Systems》论文摘要指出：传统边缘计算系统中的分布式深度神经网络（DNN）推理通常采用数据分布式推理（data-distributed inference），即每个工作节点都存储完整的预训练DNN模型并对分配给它的数据进行处理。然而，该方法存在两个主要问题：（i）当数据量较大时通信开销高；（ii）内存效率低，因每个节点需存储和计算整个模型。
+
+为此，论文探讨了模型分布式推理（model-distributed inference）的潜力，即将DNN模型本身分布到多个工作节点上。尽管模型分布式训练已有大量研究，但其在推理阶段的优势尚未被充分理解。作者基于最优模型分配的数学形式化，提出了一种轻量级、去中心化的自适应与弹性模型分布式推理算法——AR-MDI（Adaptive and Resilient Model-Distributed Inference），该算法能够应对异构边缘环境，并对延迟或失效的工作节点具有弹性【研究】【《Adaptive and Resilient Model-Distributed Inference in Edge Computing Systems》第0页】。
+2026-10-03 23:30:48,744 - agent - INFO - middleware.py:37 - [log_before_model]即将调用模型，带有16条消息
+2026-10-03 23:30:48,802 - agent - DEBUG - middleware.py:38 - [log_before_model]HumanMessage|我刚刚问了什么问题
+2026-10-03 23:35:42,836 - agent - INFO - middleware.py:37 - [log_before_model]即将调用模型，带有18条消息
+2026-10-03 23:35:42,837 - agent - DEBUG - middleware.py:38 - [log_before_model]HumanMessage|我刚刚问了什么问题

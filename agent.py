@@ -8,7 +8,7 @@ import os
 # 从环境变量读取配置（优先），否则使用默认值
 API_KEY = os.environ.get("MODELSCOPE_API_KEY")
 
-DB_DIR = "./chroma_db"
+DB_DIR = "rag_project/chroma_db"
 
 # 1. 加载 Embedding
 embeddings = HuggingFaceEmbeddings(

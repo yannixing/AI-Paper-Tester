@@ -6,7 +6,7 @@ import os
 import shutil
 
 PDF_DIR = "D:/Desktop/毕业论文/论文/研究现状1"
-DB_DIR = "./chroma_db"
+DB_DIR = "rag_project/chroma_db"
 
 
 def build_vector_db():

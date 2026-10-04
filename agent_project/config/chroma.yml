@@ -1,0 +1,27 @@
+#Chroma
+# 多向量库配置：key 是界面上显示的名字，value 是库的参数
+VECTOR_DBS:
+  paper1:
+    persist_directory: "chroma_db/paper1"
+    collection_name: "paper1"
+    data_path: "D:/Desktop/毕业论文/论文/研究现状1"
+  paper2:
+    persist_directory: "chroma_db/paper2"
+    collection_name: "paper2"
+    data_path: "D:/Desktop/毕业论文/论文/研究现状2"
+  paper3:
+    persist_directory: "chroma_db/paper3"
+    collection_name: "paper3"
+    data_path: "D:/Desktop/毕业论文/论文/其他"
+
+top_k_threshold: 3 #检索返回匹配的文档数量
+# 综述论文的识别关键词（不区分大小写）
+REVIEW_KEYWORDS : ["review", "综述", "survey", "overview"]
+allow_knowledge_file_type: ["txt","pdf"]
+md5_hex_store: "md5.txt" #保存已经处理过的文件
+#spliter
+chunk_size: 1000
+chunk_overlap: 100
+separators: ["\n\n","\n",",",".","?","!","，","。","？","！"," ",""]
+max_split_char_number: 1000 #文本分割的阈值
+

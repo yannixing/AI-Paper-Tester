@@ -1,0 +1,4 @@
+chat_model_name: qwen3-max
+embedding_model_name: text-embedding-v4
+rerank_model_name: qwen3-rerank    # 或 gte-rerank-v2
+confidence_threshold: 0.5

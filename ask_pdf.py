@@ -4,7 +4,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_huggingface import HuggingFaceEmbeddings
 #基础RAG链 (RAG Chain)，固定流程：检索 → 拼接提示词 → 生成答案。每一步都是预先设定好的，没有分支
-DB_DIR = "./chroma_db"
+DB_DIR = "rag_project/chroma_db"
 
 def format_docs(docs):
     formatted = []
