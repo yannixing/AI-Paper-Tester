@@ -134,12 +134,14 @@
 ## 项目文件结构及说明
 
 ```text
-├── build_db.py              # 向量数据库构建脚本
-├── ask_pdf.py               # 基础RAG链问答脚本
-├── agent.py                 # Agent版RAG问答脚本
-├── test_agent.py            # Agent基础功能测试脚本
-├── Dockerfile               # Docker镜像构建文件
-├── Jenkinsfile              # Jenkins CI/CD流水线定义
-├── start.sh                 # 本地开发环境启动脚本
-├── deploy.sh                # 生产环境部署脚本
-└── chroma_db/               # (运行时生成) 存放向量数据库的目录
+├── agent_project            # 封装后的agent项目，配置DASHSCOPE API环境变量后，此目录下可直接使用streamlit run app.py运行网页
+├── rag_project.py           # 封装后的固定RAG链问答脚本，配置DASHSCOPE API环境变量后，此目录下可直接使用streamlit run app_qa.py运行网页
+├── build_db.py              # 向量数据库构建脚本（学习用）
+├── ask_pdf.py               # 基础RAG链问答脚本（学习用）
+├── agent.py                 # Agent版RAG问答脚本（学习用）
+├── test_agent.py            # Agent基础功能测试脚本（学习用）
+├── Dockerfile               # Docker镜像构建文件（学习用）
+├── Jenkinsfile              # Jenkins CI/CD流水线定义（学习用）
+├── start.sh                 # 本地开发环境启动脚本（学习用）
+├── deploy.sh                # 生产环境部署脚本（学习用）
+└── chroma_db/               # (运行时生成) 存放向量数据库的目录（学习用）
